@@ -30,6 +30,9 @@ export class Figure {
     }
 
     canMove(target: Cell) {
-        
+        return true
     }
+
+    moveFigure(target: Cell) {}
+    
 }

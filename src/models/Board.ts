@@ -20,8 +20,24 @@ export class Board {
                     row.push(new Cell(this, j, i, Colors.WHITE, null)) // белые 
                 }
             }
-            this.cells.push(row);
+            this.cells.push(row)
         }
+    }
+
+    public highlightCells(selectedCell: Cell | null) {
+        for(let i = 0; i < this.cells.length; i++) {
+            const row = this.cells[i]
+            for (let j =0; j < row.length; j++) {
+                const target = row[j]
+                target.available = !!selectedCell?.figure?.canMove(target)
+            }
+        }
+    }
+
+    public getCopyBoard(): Board { //смысл в том, что создастся новый объект
+        const newBoard = new Board() //в новом объекте будет новая ссылка 
+        newBoard.cells = this.cells //поэтому реакт перерисует всю доску 
+        return newBoard //перенеся туда старые ячейки
     }
 
     public getCell(x: number, y: number) {
@@ -66,13 +82,17 @@ export class Board {
         new Rook(Colors.WHITE, this.getCell(7, 7)) 
     }
 
+    // public addFisherFigures() {
+
+    // }
+
     public addFigures() {
         this.addPawns()
         this.addKings()
-        this.addQueens ()
-        this.addBishops ()
-        this.addKnights ()
-        this.addRooks ()
+        this.addQueens()
+        this.addBishops()
+        this.addKnights()
+        this.addRooks()
     }
 }
 
