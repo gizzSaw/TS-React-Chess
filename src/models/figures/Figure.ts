@@ -30,9 +30,16 @@ export class Figure {
     }
 
     canMove(target: Cell) {
+        if(target.figure?.color === this.color)  //своих бить нельзя
+            return false
+        
+
+        if(target.figure?.name === FigureNames.KING)  //нельзя бить короля
+            return false
+        
         return true
     }
 
     moveFigure(target: Cell) {}
-    
+
 }
